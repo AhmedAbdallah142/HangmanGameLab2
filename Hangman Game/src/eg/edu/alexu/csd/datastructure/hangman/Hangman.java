@@ -1,54 +1,47 @@
 package eg.edu.alexu.csd.datastructure.hangman;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.util.Scanner;
 
-public class Hangman implements IHangman {
+public class Hangman {
+	public static char[] initialword = new char [20];
+	public static String[] words=new String[41239];
+	public static int max;
+	public static String secWord,finalWord;
 	
-	@Override
-	public void setDictionary(String[] words) {
-		Readfromfile(words);
-	}
-
-	@Override
-	public String selectRandomSecretWord() {
-		int r =(int)(Math.random()*41239);
-		return game.words[r];
-	}
-
-	@Override
-	public String guess(Character c) throws Exception {
-		int temp;
-		String tempWord;
-		temp = game.secWord.indexOf(c);
-		if (temp==-1) {
-			Hangman h=new Hangman();
-			h.setMaxWrongGuesses(game.max);
-		}
-		if (game.max <= 0) {
-			return null;
-		}
-		while (temp!=-1) {
-			game.initialword[temp]=c;
-			temp = game.secWord.indexOf(c,temp+1);
-		}
-		tempWord=new String(game.initialword).substring(0,game.secWord.length());
-		return tempWord;
-	}
-
-	@Override
-	public void setMaxWrongGuesses(Integer max) {
-		game.max--;
-	}
-	public static void Readfromfile(String a[]) {
-		try {
-			BufferedReader f = new BufferedReader(new FileReader("dictionary.txt") );
-			for (int i=0;i<41239 ;i++) {
-				a[i]=f.readLine();
+	public static void main (String []args) {
+		char c;
+		char check = 'y';
+		Scanner s=new Scanner(System.in);
+		game h = new game();
+		h.setDictionary(words);
+		
+		while (check=='y') {
+			max= 10;
+			for (int i=0;i<20;i++)initialword[i]='-';
+			for (int i=0;i<20;i++)System.out.println();
+			
+			secWord = h.selectRandomSecretWord();
+			//System.out.println(secWord);
+			while (true) { 
+				System.out.println("please enter the character that might be in the word :");
+				c=s.next().charAt(0);
+				for (int i=0;i<50;i++)System.out.println();
+				try {
+					finalWord=h.guess(c);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				System.out.println(finalWord +"\t\t"+max+" Attempts Left");
+				if (finalWord==null) {
+					System.out.println("\n\nGame Over \nthe secret word was : "+ secWord +"\nYou lose the game !!!!!!!Try again to win\n");break;
+				}
+				else if (finalWord.equals(secWord)){
+					System.out.println("\nWow !!!!!! you won the game");break;
+				}
 			}
-			f.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Are you want to play again ? [y,n]");
+			check=s.next().charAt(0);
 		}
+		s.close();
 	}
 }
