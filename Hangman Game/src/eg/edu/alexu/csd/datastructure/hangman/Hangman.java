@@ -14,8 +14,9 @@ public class Hangman {
 		Scanner s=new Scanner(System.in);
 		game h = new game();
 		h.setDictionary(words);
-		
+		int x;
 		while (check=='y') {
+			x=0;
 			max= 10;
 			for (int i=0;i<20;i++)initialword[i]='-';
 			for (int i=0;i<20;i++)System.out.println();
@@ -23,6 +24,11 @@ public class Hangman {
 			secWord = h.selectRandomSecretWord();
 			//System.out.println(secWord);
 			while (true) { 
+				if (x==0) {
+					for (int i=0;i<secWord.length();i++)System.out.print('-');
+					System.out.println("\t\t"+max+" Attempts Left");
+					x++;
+				}
 				System.out.println("please enter the character that might be in the word :");
 				c=s.next().charAt(0);
 				for (int i=0;i<50;i++)System.out.println();
