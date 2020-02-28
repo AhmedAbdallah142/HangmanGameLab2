@@ -7,7 +7,6 @@ public class Hangman {
 	public static String[] words=new String[41239];
 	public static int max;
 	public static String secWord,finalWord;
-	
 	public static void main (String []args) {
 		char c;
 		char check = 'y';
@@ -20,9 +19,7 @@ public class Hangman {
 			max= 10;
 			for (int i=0;i<20;i++)initialword[i]='-';
 			for (int i=0;i<20;i++)System.out.println();
-			
 			secWord = h.selectRandomSecretWord();
-			//System.out.println(secWord);
 			while (true) { 
 				if (x==0) {
 					for (int i=0;i<secWord.length();i++)System.out.print('-');

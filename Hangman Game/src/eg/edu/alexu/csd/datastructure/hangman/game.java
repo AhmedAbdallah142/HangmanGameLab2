@@ -41,6 +41,7 @@ public class game implements IHangman {
 	public void setMaxWrongGuesses(Integer max) {
 		Hangman.max--;
 	}
+	
 	public static void Readfromfile(String a[]) {
 		try {
 			BufferedReader f = new BufferedReader(new FileReader("dictionary.txt") );
